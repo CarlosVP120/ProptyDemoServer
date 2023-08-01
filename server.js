@@ -24,13 +24,42 @@ app.get("/", (req, res) => {
 
 // Overwrite file
 app.post("/", bodyParser.text(), (req, res) => {
+  // The first line contains the names of the columns separated by commas, I want you to add the name of each column followed by : and the value of the column for each row
+  // Example:
+  // "id:1, name:John, age:20\nid:2, name:Mary, age:30\nid:3, name:Peter, age:40"
+  // Do it with the req.body
+
+  const columnNames = req.body.split("\n")[0].split(",");
+  const rows = req.body.split("\n").slice(1);
+
+  const result = rows
+    .map((row) => {
+      const rowValues = row.split(",");
+      return columnNames
+        .map((columnName, index) => {
+          return `${columnName}:${rowValues[index]}`;
+        })
+        .join(",");
+    })
+    .join("\n");
+
   res.setHeader("Content-Type", "text/plain; charset=utf-8");
-  fs.writeFile("./Propiedades.txt", req.body, function (err) {
-    if (err) return console.log(err);
-    console.log("File overwritten");
-    // Send success response in code 200
-    res.status(200).send("File overwritten");
+  fs.writeFile("./Propiedades.txt", result, (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error");
+    } else {
+      res.status(200).send("OK");
+    }
   });
+
+  // res.setHeader("Content-Type", "text/plain; charset=utf-8");
+  // fs.writeFile("./Propiedades.txt", req.body, function (err) {
+  //   if (err) return console.log(err);
+  //   console.log("File overwritten");
+  //   // Send success response in code 200
+  //   res.status(200).send("File overwritten");
+  // });
 });
 
 app.listen(port, () => {
