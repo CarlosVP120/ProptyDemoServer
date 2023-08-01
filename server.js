@@ -49,9 +49,6 @@ app.post("/", bodyParser.text(), (req, res) => {
     })
     .join("\n");
 
-  // Delete the last row from the result
-  result = result.slice(0, -1);
-
   res.setHeader("Content-Type", "text/plain; charset=utf-8");
   fs.writeFile("./Propiedades.txt", result, (err) => {
     if (err) {
