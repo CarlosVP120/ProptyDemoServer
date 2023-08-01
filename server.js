@@ -35,11 +35,11 @@ app.post("/", bodyParser.text(), (req, res) => {
   const result = rows
     .map((row) => {
       const rowValues = row.split(",");
-      return columnNames
-        .map((columnName, index) => {
-          return `${columnName}:${rowValues[index]}`;
+      return rowValues
+        .map((rowValue, index) => {
+          return `${columnNames[index]}:${rowValue}`;
         })
-        .join(",");
+        .join(", ");
     })
     .join("\n");
 
