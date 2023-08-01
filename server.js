@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 
 // Overwrite file
 app.post("/", (req, res) => {
-  console.log(req);
+  console.log(req.body);
   // res.setHeader("Content-Type", "text/plain; charset=utf-8");
   // fs.writeFile("./Propiedades.txt", req.body, function (err) {
   //   if (err) return console.log(err);
