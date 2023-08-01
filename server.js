@@ -30,13 +30,13 @@ app.post("/", bodyParser.text(), (req, res) => {
 
   const columnNames = req.body.split("\n")[0].split(",");
   const rows = req.body.split("\n").slice(1); // this will return an array of rows without the first row
-  // Delte the "\r" from each row
+  // Delte the "\r" from each row and also from columnNames
   rows.forEach((row, index) => {
     rows[index] = row.replace("\r", "");
   });
-
-  console.log(rows);
-  console.log(columnNames);
+  columnNames.forEach((columnName, index) => {
+    columnNames[index] = columnName.replace("\r", "");
+  });
 
   const result = rows
     .map((row) => {
