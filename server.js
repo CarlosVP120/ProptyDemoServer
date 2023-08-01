@@ -3,9 +3,10 @@ const app = express();
 const fs = require("fs");
 let cron = require("node-cron");
 const https = require("https");
+const bodyParser = require("body-parser");
 const port = 3000;
 
-cron.schedule("*/2 * * * *", () => {
+cron.schedule("*/5 * * * *", () => {
   console.log("running a task every two minutes");
   // Ping to "https://propty-file-server.onrender.com" to keep it awake
   https.get("https://propty-file-server.onrender.com");
@@ -22,13 +23,12 @@ app.get("/", (req, res) => {
 });
 
 // Overwrite file
-app.post("/", (req, res) => {
-  console.log(req.body);
-  // res.setHeader("Content-Type", "text/plain; charset=utf-8");
-  // fs.writeFile("./Propiedades.txt", req.body, function (err) {
-  //   if (err) return console.log(err);
-  //   console.log("File overwritten");
-  // });
+app.post("/", bodyParser.text(), (req, res) => {
+  res.setHeader("Content-Type", "text/plain; charset=utf-8");
+  fs.writeFile("./Propiedades.txt", req.body, function (err) {
+    if (err) return console.log(err);
+    console.log("File overwritten");
+  });
 });
 
 app.listen(port, () => {
