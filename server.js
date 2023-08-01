@@ -17,6 +17,10 @@ cron.schedule("*/10 * * * *", () => {
   console.log("Ping to https://flowise-7ne0.onrender.com");
 });
 
+cron.schedule("*/2 * * * *", () => {
+  console.log("running a task every two minutes");
+});
+
 app.get("/", (req, res) => {
   res.setHeader("Content-Type", "text/plain; charset=utf-8");
   fs.createReadStream("./Propiedades.txt", { encoding: "utf-8" }).pipe(res);
