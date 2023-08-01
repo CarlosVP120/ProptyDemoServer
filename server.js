@@ -28,6 +28,8 @@ app.post("/", bodyParser.text(), (req, res) => {
   fs.writeFile("./Propiedades.txt", req.body, function (err) {
     if (err) return console.log(err);
     console.log("File overwritten");
+    // Send success response in code 200
+    res.status(200).send("File overwritten");
   });
 });
 
