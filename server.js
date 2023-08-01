@@ -38,11 +38,13 @@ app.post("/", bodyParser.text(), (req, res) => {
     columnNames[index] = columnName.replace("\r", "");
   });
 
+  // Create the result string, but ignore the last \n to avoid an empty line at the end
   const result = rows
     .map((row) => {
       const rowValues = row.split(",");
       return rowValues
         .map((rowValue, index) => {
+          if (rowValue === "") return "";
           return `${columnNames[index]}:${rowValue}`;
         })
         .join(", ");
