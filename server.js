@@ -30,7 +30,9 @@ app.post("/", bodyParser.text(), (req, res) => {
   // Do it with the req.body
 
   const columnNames = req.body.split("\n")[0].split(",");
-  const rows = req.body.split("\n").slice(1);
+  const rows = req.body.split("\n").slice(1); // this will return an array of rows without the first row
+
+  console.log(rows);
 
   const result = rows
     .map((row) => {
