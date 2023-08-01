@@ -27,16 +27,16 @@ app.post("/", bodyParser.text(), (req, res) => {
   // The first line contains the names of the columns separated by commas, I want you to add the name of each column followed by : and the value of the column for each row
   // Example:
   // "id:1, name:John, age:20\nid:2, name:Mary, age:30\nid:3, name:Peter, age:40"
-  // Do it with the req.body
 
   const columnNames = req.body.split("\n")[0].split(",");
   const rows = req.body.split("\n").slice(1); // this will return an array of rows without the first row
-  // Delte the "\r" fromt each row
+  // Delte the "\r" from each row
   rows.forEach((row, index) => {
     rows[index] = row.replace("\r", "");
   });
 
   console.log(rows);
+  console.log(columnNames);
 
   const result = rows
     .map((row) => {
