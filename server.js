@@ -8,12 +8,10 @@ const port = 3000;
 cron.schedule("*/2 * * * *", () => {
   console.log("running a task every two minutes");
   // Ping to "https://propty-file-server.onrender.com" to keep it awake
-  fetch("https://propty-file-server.onrender.com");
   https.get("https://propty-file-server.onrender.com");
   console.log("Ping to https://propty-file-server.onrender.com");
 
   // Ping to "https://flowise-7ne0.onrender.com" to keep it awake
-  fetch("https://flowise-7ne0.onrender.com");
   https.get("https://flowise-7ne0.onrender.com");
   console.log("Ping to https://flowise-7ne0.onrender.com");
 });
