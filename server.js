@@ -12,14 +12,14 @@ app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
 app.use(bodyParser.text({ limit: "50mb" }));
 
 cron.schedule("*/5 * * * *", () => {
-  console.log("running a task every two minutes");
+  console.log("running a task every five minutes");
   // Ping to "https://propty-file-server.onrender.com" to keep it awake
   https.get("https://propty-file-server.onrender.com");
-  console.log("Ping to https://propty-file-server.onrender.com");
+  console.log("Ping to Myself");
 
   // Ping to "https://flowise-7ne0.onrender.com" to keep it awake
   https.get("https://flowise-7ne0.onrender.com");
-  console.log("Ping to https://flowise-7ne0.onrender.com");
+  console.log("Ping to FlowiseAI Server");
 });
 
 app.get("/", (req, res) => {
