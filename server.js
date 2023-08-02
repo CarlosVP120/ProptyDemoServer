@@ -38,36 +38,36 @@ app.post("/", bodyParser.text(), (req, res) => {
   //   columnNames[index] = columnName.replace("\r", "");
   // });
 
-  // // Create the result string, but ignore the last \n to avoid an empty line at the end
-  // const result = rows
-  //   .map((row) => {
-  //     const rowValues = row.split(",");
-  //     return rowValues
-  //       .map((rowValue, index) => {
-  //         if (rowValue === "") return "";
-  //         return `${columnNames[index]}:${rowValue}`;
-  //       })
-  //       .join(", ");
-  //   })
-  //   .join("\n");
-
-  // res.setHeader("Content-Type", "text/plain; charset=utf-8");
-  // fs.writeFile("./Propiedades.txt", result, (err) => {
-  //   if (err) {
-  //     console.log(err);
-  //     res.status(500).send("Error");
-  //   } else {
-  //     res.status(200).send("OK");
-  //   }
-  // });
+  // Create the result string, but ignore the last \n to avoid an empty line at the end
+  const result = rows
+    .map((row) => {
+      const rowValues = row.split(",");
+      return rowValues
+        .map((rowValue, index) => {
+          if (rowValue === "") return "";
+          return `${columnNames[index]}:${rowValue}`;
+        })
+        .join(", ");
+    })
+    .join("\n");
 
   res.setHeader("Content-Type", "text/plain; charset=utf-8");
-  fs.writeFile("./Propiedades.txt", req.body, function (err) {
-    if (err) return console.log(err);
-    console.log("File overwritten");
-    // Send success response in code 200
-    res.status(200).send("File overwritten");
+  fs.writeFile("./Propiedades.txt", result, (err) => {
+    if (err) {
+      console.log(err);
+      res.status(500).send("Error");
+    } else {
+      res.status(200).send("OK");
+    }
   });
+
+  // res.setHeader("Content-Type", "text/plain; charset=utf-8");
+  // fs.writeFile("./Propiedades.txt", req.body, function (err) {
+  //   if (err) return console.log(err);
+  //   console.log("File overwritten");
+  //   // Send success response in code 200
+  //   res.status(200).send("File overwritten");
+  // });
 });
 
 app.listen(port, () => {
