@@ -6,6 +6,11 @@ const https = require("https");
 const bodyParser = require("body-parser");
 const port = 3000;
 
+// Set the file size limit to 50mb
+app.use(bodyParser.json({ limit: "50mb" }));
+app.use(bodyParser.urlencoded({ limit: "50mb", extended: true }));
+app.use(bodyParser.text({ limit: "50mb" }));
+
 cron.schedule("*/5 * * * *", () => {
   console.log("running a task every two minutes");
   // Ping to "https://propty-file-server.onrender.com" to keep it awake
